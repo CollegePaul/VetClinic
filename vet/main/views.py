@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 #from django.http import HttpResponse
 
 # Create your views here.
@@ -14,3 +16,20 @@ def home(request):
 
 def about(request):
     return render(request, "about.html")
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+
+
+    form = UserCreationForm()
+    return render(request, "register.html", {"form": form})
+
+@login_required
+def dashboard(request):
+    context = {"booking_count": request.user.booking_set.count()}
+    return render(request, "dashboard.html", context)
