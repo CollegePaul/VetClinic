@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Book an apointment - Happy Paws{% endblock %}
+
+{% block content %}
+    <h1>Book and apointment</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-primary" type="submit">Book it</button>
+
+    </form>
+
+
+{% endblock %}
