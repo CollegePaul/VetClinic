@@ -28,9 +28,22 @@ form.addEventListener("submit", function (event) {
     event.preventDefault(); //no page reload
     const kg = parseFloat(weightBox.value)
     const age = parseFloat(ageBox.value)
-    // console.log(kg)
-    // console.log(age)
+    
+    //Validation
+    if (isNaN(kg) || kg <= 0 || kg >= 120){  //presence check   || or
+        showMessage("The weight must be a real number 0.1 to 120 kg")
+        return;  // stop the code continuing
+    }
+
+    if (isNaN(age) || age < 0 || age > 30){
+        showMessage("The age must be 0 to 30 years old")
+    }
+
     
     const needs = dailyNeeds(kg,age, activityBox.value)
-    console.log(needs)
+    showMessage(`${needs.kcal} Kcal a day and ${needs.grams}g of food a day`)
 })
+
+function showMessage(message){
+    resultsBox.textContent = message;
+}
