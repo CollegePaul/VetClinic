@@ -33,3 +33,6 @@ def register(request):
 def dashboard(request):
     context = {"booking_count": request.user.booking_set.count()}
     return render(request, "dashboard.html", context)
+
+def calculator(request):
+    return render(request, "calculator.html")
